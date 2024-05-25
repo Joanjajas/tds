@@ -1,7 +1,7 @@
 import numpy as np
 import librosa
 import scipy
-from scipy.signal import find_peaks, spectrogram
+from scipy.signal import find_peaks
 from scipy.ndimage import median_filter
 from scipy.ndimage import binary_opening, binary_closing
 
@@ -20,18 +20,12 @@ def debuffer(xwin, frame_length, overlap_length):
     return x
 
 
-def nextpow2(n):
-    return int(np.ceil(np.log2(n)))
+def linear_normalize(array):
+    min_val = np.min(array)
+    max_val = np.max(array)
+    normalized_array = (array - min_val) / (max_val - min_val + 1e-10)
 
-
-def validate_required_inputs(x, fs):
-    assert (
-        x.ndim == 1 and len(x) > 0 and np.isrealobj(x) and np.isfinite(x).all()
-    ), "audioIn must be a non-empty column vector of real finite values"
-    assert (
-        np.isscalar(fs) and fs > 0 and np.isreal(fs) and np.isfinite(fs)
-    ), "fs must be a positive scalar finite value"
-    assert fs >= 20, "fs must be at least 20 Hz"
+    return normalized_array
 
 
 def get_thresholds_from_feature(feature, bins):
