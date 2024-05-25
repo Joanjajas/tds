@@ -2,25 +2,24 @@ function extract_features(path)
     if isfolder(path)
         % Get a list of all WAV files in the folder
         files = dir(fullfile(path, '*.wav'));
-        
         descriptors = [];
-        
+
         for i = 1:length(files)
             % Get the file name
             fileName = files(i).name;
-            
+
             % Get the full path to the audio file
             audioPath = fullfile(path, fileName);
-            
+
             % Call the extract_features function for each audio file
             descriptor = extract_features_helper(audioPath);
-            
+
             % Accumulate descriptors and ground truth labels
             descriptors = [descriptors; descriptor];
         end
-        
+
         descriptor = descriptors;
-        
+
         % Save all descriptors and ground truth labels in one MAT file
         save('test_data.mat', 'descriptor');
     end
@@ -28,7 +27,7 @@ function extract_features(path)
     if isfile(path)
         % Call the extract_features function for the audio file
         descriptor = extract_features_helper(path);
-        
+
         % Save the descriptor in a MAT file
         save('test_data.mat', 'descriptor');
     end
@@ -86,4 +85,3 @@ function audioIn_mask = myVad(audioIn, fs)
         audioIn_mask = [audioIn_mask; audioIn(chunkIndices(1):chunkIndices(2))];
     end
 end
-
