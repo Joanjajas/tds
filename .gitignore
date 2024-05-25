@@ -1,3 +1,5 @@
 .venv
-pracs/prac6/data/
+pracs/prac6/audio_data/
 **/.DS_Store
+pracs/prac6/training_dataset.pt
+pracs/prac6/validation_dataset.pt

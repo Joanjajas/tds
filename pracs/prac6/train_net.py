@@ -14,6 +14,7 @@ def train_epoch(network, loss_fn, dataloader, optimizer, device="cpu"):
     num_samples = 0
 
     # Iterate over the data loader
+    print("algo")
     for batch_inputs, batch_targets in dataloader:
         # Move data to the appropriate device (e.g., GPU)
         batch_inputs = batch_inputs.to(device)
@@ -37,6 +38,7 @@ def train_epoch(network, loss_fn, dataloader, optimizer, device="cpu"):
         # Accumulate the loss
         epoch_loss += loss.item()
         num_batches += 1
+        print("mas uno")
 
         # Calculate the number of correct predictions in the batch
         _, predicted = torch.max(batch_outputs, 1)
@@ -104,6 +106,7 @@ def train(
     num_epochs,
     device="cpu",
 ):
+    print("dsfafs")
     train_losses = []
     val_losses = []
     val_acc = []
